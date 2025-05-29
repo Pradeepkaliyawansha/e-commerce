@@ -16,7 +16,44 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      enum: ["buyer", "seller", "admin"],
+      default: "buyer",
+    },
     isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    // Seller-specific fields
+    storeName: {
+      type: String,
+      required: function () {
+        return this.role === "seller";
+      },
+    },
+    storeDescription: {
+      type: String,
+      default: "",
+    },
+    // Contact information
+    phone: {
+      type: String,
+      default: "",
+    },
+    address: {
+      street: String,
+      city: String,
+      state: String,
+      zipCode: String,
+      country: String,
+    },
+    // Profile settings
+    avatar: {
+      type: String,
+      default: "",
+    },
+    isVerified: {
       type: Boolean,
       default: false,
     },
