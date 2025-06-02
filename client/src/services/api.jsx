@@ -76,7 +76,9 @@ export const getProducts = async (params = {}) => {
   const response = await api.get(
     `/products${queryString ? "?" + queryString : ""}`
   );
-  return response.data;
+  // Backend returns { products, page, pages, total }
+  // Return just the products array for compatibility
+  return response.data.products || response.data;
 };
 
 export const getProduct = async (id) => {
@@ -204,7 +206,7 @@ export const getUserOrders = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await api.get("/orders/my-orders", config);
+  const response = await api.get("/orders/my/orders", config);
   return response.data;
 };
 
@@ -214,20 +216,23 @@ export const getSellerOrders = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await api.get("/orders/seller-orders", config);
+  const response = await api.get("/orders/seller/orders", config);
   return response.data;
 };
 
-export const updateOrderStatus = async (id, status, token) => {
+export const updateOrderStatus = async (orderId, itemId, status, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await api.patch(`/orders/${id}/status`, { status }, config);
+  const response = await api.patch(
+    `/orders/${orderId}/items/${itemId}/status`,
+    { status },
+    config
+  );
   return response.data;
 };
-
 // Statistics API for sellers
 export const getSellerStats = async (token) => {
   const config = {

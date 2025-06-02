@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import ThemeToggle from "./ThemeToggle";
 import Cart from "./Cart";
 
 const Header = () => {
@@ -18,11 +19,14 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-40">
+    <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-40 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-blue-600">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-blue-600 dark:text-blue-400"
+          >
             E-Shop
           </Link>
 
@@ -30,13 +34,13 @@ const Header = () => {
           <nav className="hidden md:flex space-x-8">
             <Link
               to="/"
-              className="text-gray-700 hover:text-blue-600 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               Home
             </Link>
             <Link
               to="/products"
-              className="text-gray-700 hover:text-blue-600 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               Products
             </Link>
@@ -44,13 +48,13 @@ const Header = () => {
               <>
                 <Link
                   to="/seller/dashboard"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   Dashboard
                 </Link>
                 <Link
                   to="/seller/add-product"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   Add Product
                 </Link>
@@ -60,11 +64,14 @@ const Header = () => {
 
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+
             {/* Cart button (only for buyers or non-sellers) */}
             {(!user || user.role === "buyer") && (
               <button
                 onClick={() => setShowCart(true)}
-                className="relative p-2 text-gray-700 hover:text-blue-600 transition-colors"
+                className="relative p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <svg
                   className="w-6 h-6"
@@ -92,16 +99,16 @@ const Header = () => {
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors"
+                  className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
-                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-blue-500 dark:bg-blue-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm font-medium">
                       {user.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
                   <div className="hidden md:block text-left">
                     <p className="text-sm font-medium">{user.name}</p>
-                    <p className="text-xs text-gray-500 capitalize">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
                       {user.role}
                       {user.role === "seller" &&
                         user.storeName &&
@@ -125,14 +132,16 @@ const Header = () => {
 
                 {/* User dropdown menu */}
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                    <div className="px-4 py-2 border-b">
-                      <p className="text-sm font-medium text-gray-900">
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-50 border dark:border-gray-600">
+                    <div className="px-4 py-2 border-b dark:border-gray-600">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">
                         {user.name}
                       </p>
-                      <p className="text-sm text-gray-500">{user.email}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {user.email}
+                      </p>
                       {user.role === "seller" && user.storeName && (
-                        <p className="text-xs text-blue-600">
+                        <p className="text-xs text-blue-600 dark:text-blue-400">
                           {user.storeName}
                         </p>
                       )}
@@ -143,7 +152,7 @@ const Header = () => {
                       <>
                         <Link
                           to="/seller/dashboard"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                           onClick={() => setShowUserMenu(false)}
                         >
                           <div className="flex items-center">
@@ -165,7 +174,7 @@ const Header = () => {
                         </Link>
                         <Link
                           to="/seller/add-product"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                           onClick={() => setShowUserMenu(false)}
                         >
                           <div className="flex items-center">
@@ -187,7 +196,7 @@ const Header = () => {
                         </Link>
                         <Link
                           to="/seller/orders"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                           onClick={() => setShowUserMenu(false)}
                         >
                           <div className="flex items-center">
@@ -212,7 +221,7 @@ const Header = () => {
                       <>
                         <Link
                           to="/orders"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                           onClick={() => setShowUserMenu(false)}
                         >
                           <div className="flex items-center">
@@ -234,7 +243,7 @@ const Header = () => {
                         </Link>
                         <Link
                           to="/wishlist"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                           onClick={() => setShowUserMenu(false)}
                         >
                           <div className="flex items-center">
@@ -257,10 +266,10 @@ const Header = () => {
                       </>
                     )}
 
-                    <div className="border-t mt-1">
+                    <div className="border-t dark:border-gray-600 mt-1">
                       <Link
                         to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                         onClick={() => setShowUserMenu(false)}
                       >
                         <div className="flex items-center">
@@ -282,7 +291,7 @@ const Header = () => {
                       </Link>
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50"
+                        className="block w-full text-left px-4 py-2 text-sm text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
                       >
                         <div className="flex items-center">
                           <svg
@@ -309,13 +318,13 @@ const Header = () => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                  className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
                 >
                   Register
                 </Link>
@@ -323,7 +332,7 @@ const Header = () => {
             )}
 
             {/* Mobile menu button */}
-            <button className="md:hidden p-2 text-gray-700 hover:text-blue-600">
+            <button className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
               <svg
                 className="w-6 h-6"
                 fill="none"

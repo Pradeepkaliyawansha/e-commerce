@@ -10,30 +10,30 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg dark:hover:shadow-xl transition-shadow duration-200 border dark:border-gray-700">
       <Link to={`/product/${product._id}`}>
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-48 object-cover"
+          className="w-full h-48 object-cover hover:scale-105 transition-transform duration-200"
         />
       </Link>
       <div className="p-4">
         <Link to={`/product/${product._id}`}>
-          <h3 className="text-lg font-semibold text-gray-800 hover:text-blue-600">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             {product.name}
           </h3>
         </Link>
-        <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-2">
           {product.description}
         </p>
         <div className="flex items-center justify-between mt-4">
-          <span className="text-2xl font-bold text-blue-600">
+          <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
             ${product.price}
           </span>
           <button
             onClick={handleAddToCart}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+            className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors duration-200"
           >
             Add to Cart
           </button>
@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
                 className={`w-4 h-4 ${
                   i < Math.floor(product.rating)
                     ? "fill-current"
-                    : "fill-gray-300"
+                    : "fill-gray-300 dark:fill-gray-600"
                 }`}
                 viewBox="0 0 24 24"
               >
@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
               </svg>
             ))}
           </div>
-          <span className="text-gray-600 text-sm ml-2">
+          <span className="text-gray-600 dark:text-gray-400 text-sm ml-2">
             ({product.numReviews} reviews)
           </span>
         </div>
