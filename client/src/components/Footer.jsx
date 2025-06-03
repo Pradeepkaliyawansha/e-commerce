@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -15,36 +16,36 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="/"
+                <Link
+                  to="/"
                   className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/products"
+                <Link
+                  to="/products"
                   className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors"
                 >
                   Products
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/about"
+                <Link
+                  to="/about"
                   className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors"
                 >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/contact"
+                <Link
+                  to="/contact"
                   className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors"
                 >
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -52,36 +53,36 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Customer Service</h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/contact"
                   className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors"
                 >
                   FAQ
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/contact"
                   className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors"
                 >
                   Shipping Info
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/contact"
                   className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors"
                 >
                   Returns
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/contact"
                   className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors"
                 >
                   Support
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -15,6 +15,8 @@ import SellerOrders from "./pages/SellerOrders";
 import BuyerOrders from "./pages/BuyerOrders";
 import Profile from "./pages/Profile";
 import Wishlist from "./pages/Wishlist";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
