@@ -64,9 +64,6 @@ const Header = () => {
 
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
-            {/* Theme Toggle */}
-            <ThemeToggle />
-
             {/* Cart button (only for buyers or non-sellers) */}
             {(!user || user.role === "buyer") && (
               <button
@@ -347,6 +344,9 @@ const Header = () => {
                 />
               </svg>
             </button>
+
+            {/* Theme Toggle - moved to the end */}
+            <ThemeToggle />
           </div>
         </div>
       </div>
