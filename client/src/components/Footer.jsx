@@ -130,7 +130,7 @@ const Footer = () => {
         </div>
         <div className="border-t border-gray-700 dark:border-gray-600 mt-8 pt-8 text-center">
           <p className="text-gray-300 dark:text-gray-400">
-            &copy; 2024 E-Shop. All rights reserved.
+            &copy; {new Date().getFullYear()} E-Shop. All rights reserved.
           </p>
         </div>
       </div>
