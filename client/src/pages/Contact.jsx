@@ -1,4 +1,3 @@
-// client/src/pages/Contact.jsx - Complete Contact Page
 import React, { useState } from "react";
 
 const Contact = () => {
@@ -668,7 +667,7 @@ const Contact = () => {
               Our customer support team is available during these hours
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="text-center">
               <div className="bg-blue-500 dark:bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
@@ -878,7 +877,7 @@ const Contact = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M15 17h5l-5 5v-5zM12 5v14m0-14L9 2m3 3l3-3"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
                   />
                 </svg>
               </div>
