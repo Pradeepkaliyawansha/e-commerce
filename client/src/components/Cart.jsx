@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 const Cart = ({ onClose }) => {
   const { cartItems, removeFromCart, addToCart } = useCart();
+
+  // Prevent body scroll when cart is open
+  useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    const originalScrollY = window.scrollY;
+
+    // Prevent background scroll
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${originalScrollY}px`;
+    document.body.style.width = "100%";
+
+    return () => {
+      // Restore scroll
+      document.body.style.overflow = originalStyle;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, originalScrollY);
+    };
+  }, []);
 
   const getTotalPrice = () => {
     return cartItems
@@ -21,9 +42,9 @@ const Cart = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 z-50 flex justify-end transition-all duration-300">
-      <div className="bg-white dark:bg-gray-800 w-full max-w-md h-full overflow-y-auto transition-colors duration-200 shadow-2xl">
+      <div className="bg-white dark:bg-gray-800 w-full max-w-md h-full overflow-y-auto transition-colors duration-200 shadow-2xl cart-sidebar">
         {/* Header */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 sticky top-0 z-10">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 sticky top-0 z-10 sticky-fix">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
               Shopping Cart
@@ -31,6 +52,7 @@ const Cart = ({ onClose }) => {
             <button
               onClick={onClose}
               className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+              aria-label="Close cart"
             >
               <svg
                 className="w-6 h-6"
@@ -56,7 +78,9 @@ const Cart = ({ onClose }) => {
           )}
         </div>
 
-        <div className="p-4">
+        <div className="p-4 pb-20">
+          {" "}
+          {/* Added bottom padding for better scroll */}
           {cartItems.length === 0 ? (
             /* Empty Cart State */
             <div className="text-center py-12">
@@ -117,12 +141,14 @@ const Cart = ({ onClose }) => {
                           src={item.image}
                           alt={item.name}
                           className="w-16 h-16 object-cover rounded-md border dark:border-gray-600"
+                          loading="lazy"
                         />
                         {/* Remove button overlay */}
                         <button
                           onClick={() => removeFromCart(item._id)}
                           className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-xs transition-colors duration-200 shadow-lg"
                           title="Remove item"
+                          aria-label={`Remove ${item.name} from cart`}
                         >
                           ×
                         </button>
@@ -140,6 +166,7 @@ const Cart = ({ onClose }) => {
                             onClick={() => updateQuantity(item, item.qty - 1)}
                             className="w-8 h-8 flex items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-l-md hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200 border border-r-0 border-gray-300 dark:border-gray-500"
                             disabled={item.qty <= 1}
+                            aria-label="Decrease quantity"
                           >
                             <svg
                               className="w-3 h-3"
@@ -161,6 +188,7 @@ const Cart = ({ onClose }) => {
                           <button
                             onClick={() => updateQuantity(item, item.qty + 1)}
                             className="w-8 h-8 flex items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-r-md hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200 border border-l-0 border-gray-300 dark:border-gray-500"
+                            aria-label="Increase quantity"
                           >
                             <svg
                               className="w-3 h-3"
@@ -188,8 +216,8 @@ const Cart = ({ onClose }) => {
                 ))}
               </div>
 
-              {/* Cart Summary */}
-              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600">
+              {/* Cart Summary - Fixed at bottom */}
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600 sticky bottom-0 bg-white dark:bg-gray-800 pb-4">
                 <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
                   {/* Subtotal */}
                   <div className="flex justify-between items-center mb-2">

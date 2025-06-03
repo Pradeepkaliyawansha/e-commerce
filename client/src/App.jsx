@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -19,10 +19,46 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function App() {
+  const location = useLocation();
+
+  // Scroll to top on route change and fix scroll issues
+  useEffect(() => {
+    // Smooth scroll to top
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+
+    // Force scroll reset for problematic browsers
+    setTimeout(() => {
+      if (window.scrollY > 0) {
+        window.scrollTo(0, 0);
+      }
+    }, 100);
+  }, [location.pathname]);
+
+  // Fix viewport height issues on mobile
+  useEffect(() => {
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    setVH();
+    window.addEventListener("resize", setVH);
+    window.addEventListener("orientationchange", setVH);
+
+    return () => {
+      window.removeEventListener("resize", setVH);
+      window.removeEventListener("orientationchange", setVH);
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col transition-colors duration-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col transition-colors duration-200 theme-transition">
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow scroll-container">
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
